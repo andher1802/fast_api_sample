@@ -1,27 +1,23 @@
-from fastapi import FastAPI, Query, status, Request, HTTPException, Depends
+from fastapi import FastAPI, Query, status, Depends
 from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.security import HTTPBearer
 
 from movies import Movie, movies
 from user import User
 from fn_movies import *
-from fn_auth import login_fn, authenticate_token
+from fn_auth import login_fn
 
-from typing import Optional, List
-from config.database import Session, Base, engine
+from typing import List
+from config.database import Base, engine
 
-Base.metadata.create_all(bind=engine)
-
-class JWTBearer(HTTPBearer):
-    async def __call__(self, request: Request):
-        auth = await super().__call__(request)
-        data = authenticate_token(auth.credentials)
-        if data['email'] != "admin@gmail.com":
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, content="invalid credentials")
+from middlewares.error_handler import ErrorHandler
+from middlewares.jwt_bearer import JWTBearer
 
 app = FastAPI()
 app.title = "Test application"
 app.version = "0.0.1"
+
+app.add_middleware(ErrorHandler)
+Base.metadata.create_all(bind=engine)
 
 @app.get('/', tags=['home'])
 def message():
