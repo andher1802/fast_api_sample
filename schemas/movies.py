@@ -28,22 +28,3 @@ class Movie(BaseModel):
                 "category":"general"
             } 
         }
-
-movies:list[Movie] = [
-    {
-        "id": 1,
-        "title": "Avatar",
-        "overview": "Lorem ipsum",
-        "year": 2010,
-        "rating": 7.8,
-        "category": "Action"
-    },
-    {
-        "id": 2,
-        "title": "Avatar",
-        "overview": "Lorem ipsum",
-        "year": 2010,
-        "rating": 7.8,
-        "category": "Action"
-    },
-]

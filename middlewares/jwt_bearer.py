@@ -1,6 +1,6 @@
 from fastapi.security import HTTPBearer
 from fastapi import status, Request, HTTPException
-from fn_auth import authenticate_token
+from services.fn_auth import authenticate_token
 
 
 class JWTBearer(HTTPBearer):

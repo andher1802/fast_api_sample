@@ -1,7 +1,7 @@
 from fastapi import status
 
-from user import User
-from jwt_manager import create_token, validate_token
+from schemas.user import User
+from utils.jwt_manager import create_token, validate_token
 
 def login_fn(user: User):
     if user.email == "admin@gmail.com" and user.password == "admin":
